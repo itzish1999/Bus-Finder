@@ -9,7 +9,10 @@ function App() {
   useEffect(() => {
     getLocation();
     if (location?.latitude && location?.longitude) {
-      axios.post('http://localhost:8000/api/location', location)
+      axios.post('http://localhost:8000/api/bus-stops', {
+        longitude: location.longitude,
+        latitude: location.latitude,
+      })
         .then(res => {
           console.log('Location sent:', res.data);
         })
