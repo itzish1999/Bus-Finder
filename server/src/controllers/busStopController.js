@@ -9,7 +9,7 @@ const getBusStop = (req, res) => {
 
     console.log('coords', coords)
 
-    const route = `http://bustime.mta.info/api/where/stops-for-location.json?lat=${coords.latitude}&lon=${coords.longitude}&latSpan=0.015&lonSpan=0.016&key=${apiKey}`;
+    const route = `http://bustime.mta.info/api/where/stops-for-location.json?lat=${coords.latitude}&lon=${coords.longitude}&latSpan=0.018&lonSpan=0.018&key=${apiKey}`;
 
     axios.get(route)
         .then(response => {
@@ -19,10 +19,12 @@ const getBusStop = (req, res) => {
 
             const buses = busStops.map(busStop => {
                 const stopName = busStop.name;
-                const busRoutes = busStop.routes.map(routeName => routeName.id)
+                const busDirection = busStop.direction
+                const busRoutes = busStop.routes.map(routeName => routeName.id);
 
                 return {
                     stopName,
+                    busDirection,
                     busRoutes,
                 };
             });
