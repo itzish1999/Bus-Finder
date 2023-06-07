@@ -1,14 +1,20 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useGetLocation } from './utils';
+import { getlocation } from './app/features/location/location-slice';
 import axios from 'axios';
 
-
 function App() {
-  const [location, setLocation] = useState({});
+  const dispatch = useDispatch();
+  const { latitude, longitude } = useSelector((state) => state.location);
+
+  const location = useGetLocation();
 
   useEffect(() => {
-    getLocation();
-    if (location?.latitude && location?.longitude) {
+    dispatch(getlocation(location));
+
+    if (latitude && longitude) {
       axios.post('http://localhost:8000/api/bus-stops', {
         longitude: location.longitude,
         latitude: location.latitude,
@@ -20,14 +26,7 @@ function App() {
           console.error('Error sending location:', error);
         });
     }
-  }, [location.latitude, location.longitude]);
-
-  const getLocation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      setLocation({ latitude, longitude });
-    });
-  }
+  }, [dispatch, location, latitude, longitude]);
 
   return (
     <div className="App">
