@@ -20,7 +20,10 @@ const getBusStop = (req, res) => {
             const buses = busStops.map(busStop => {
                 const stopName = busStop.name;
                 const busDirection = busStop.direction
-                const busRoutes = busStop.routes.map(routeName => routeName.id);
+                const busRoutes = busStop.routes.map(route => ({
+                    routeId: route.id,
+                    routeName: route.longName,
+                }));
 
                 return {
                     stopName,
