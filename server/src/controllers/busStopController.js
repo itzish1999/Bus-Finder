@@ -13,9 +13,21 @@ const getBusStop = (req, res) => {
 
     axios.get(route)
         .then(response => {
-            const responseData = response.data
-            console.log('response : ', responseData);
-            res.json(responseData);
+            const responseData = response.data;
+            const busStops = responseData.data.stops;
+            console.log("bus stops : ", busStops)
+
+            const buses = busStops.map(busStop => {
+                const stopName = busStop.name;
+                const busRoutes = busStop.routes.map(routeName => routeName.id)
+
+                return {
+                    stopName,
+                    busRoutes,
+                };
+            });
+            console.log("Buses : ", buses)
+            res.json(buses);
         })
         .catch(err => {
             console.log(err);
