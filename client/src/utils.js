@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const getLocation = () => {
+export const useGetLocation = () => {
 
     const [location, setLocation] = useState({});
     useEffect(() => {
