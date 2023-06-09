@@ -2,18 +2,21 @@ import './App.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetLocation } from './utils';
-import { getlocation } from './app/features/location/location-slice';
+import { getBusList } from './app/features/bus-list/busList-slice';
 import axios from 'axios';
+
+import BusList from './app/features/bus-list/BusList';
 
 function App() {
   const dispatch = useDispatch();
   const { latitude, longitude } = useSelector((state) => state.location);
+  const busList = useSelector((state) => state.busList);
+  const location = useSelector((state) => state.location);
 
-  const location = useGetLocation();
+
+  useGetLocation();
 
   useEffect(() => {
-    dispatch(getlocation(location));
-
     if (latitude && longitude) {
       axios.post('http://localhost:8000/api/bus-stops', {
         longitude: location.longitude,
@@ -21,6 +24,7 @@ function App() {
       })
         .then(res => {
           console.log('Location sent:', res.data);
+          dispatch(getBusList(res.data));
         })
         .catch(error => {
           console.error('Error sending location:', error);
@@ -28,9 +32,14 @@ function App() {
     }
   }, [dispatch, location, latitude, longitude]);
 
+  if (!longitude && !latitude && !busList) {
+    return <div>Getting Data...</div>
+  }
+
   return (
     <div className="App">
       <p>BUS APP</p>
+      {longitude && latitude && busList ? <BusList buses={busList} /> : <div>Getting Data...</div>}
     </div>
   );
 }
