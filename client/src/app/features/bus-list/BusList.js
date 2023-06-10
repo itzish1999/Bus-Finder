@@ -1,23 +1,18 @@
 const BusList = ({ buses }) => {
-    // const busRoutes = buses.map(bus => {
-    //     return bus.busRoutes.map(route => {
-    //         return {
-    //             routeId: route.routeId,
-    //             routeName: route.routeName
-    //         }
-    //     })
-    // });
-    // console.log("buses are :: ", buses)
-    // console.log("busRoutes are :: ", busRoutes)
 
     return (
         <div>
             {buses.map(bus => {
-                return (
-                    <ul>
-                        <li key={bus.routeId}>{bus.stopName} - {bus.busDirection} - {bus.routeName}</li>
-                    </ul>
-                )
+                const { stopName, busDirection } = bus;
+                return bus.busRoutes.map(route => {
+                    const { routeId, busName, routeName } = route;
+
+                    return (
+                        <p key={routeId}>
+                            <b>Stop:</b> {stopName} - <b>Bus:</b> {busName} - <b>Direction:</b> {busDirection} - <b> Route Name:</b> {routeName}
+                        </p>
+                    )
+                });
             })}
         </div>
     )

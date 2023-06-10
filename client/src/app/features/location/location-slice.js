@@ -5,8 +5,6 @@ const locationSlice = createSlice({
     initialState: {},
     reducers: {
         getlocation: (state, action) => {
-            console.log("state is: ", state);
-            console.log("action is: ", action)
             state.latitude = action.payload.latitude;
             state.longitude = action.payload.longitude;
         },
