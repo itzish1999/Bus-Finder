@@ -38,7 +38,6 @@ function App() {
 
   return (
     <div className="App">
-      <p>BUS APP</p>
       {longitude && latitude && busList ? <BusList buses={busList} /> : <div>Getting Data...</div>}
     </div>
   );
