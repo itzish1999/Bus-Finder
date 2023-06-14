@@ -5,26 +5,27 @@ const BusList = ({ buses }) => {
     const dispatch = useDispatch();
 
     const handleBusClick = (bus) => {
-        console.log("Clicked!");
         dispatch(getSelectedBus(bus));
     }
 
     return (
-        <div>
-            {buses.map(bus => {
-                const { stopName, busDirection } = bus;
-                return bus.busRoutes.map(route => {
-                    const { routeId, busName, routeName } = route;
+        <div className="card-container">
+            {buses.map((bus) => {
+                const { stopName, busDirection, busRoutes } = bus;
+                const busNames = busRoutes.map((route) => route.busName).join(", ");
 
-                    return (
-                        <p key={routeId} onClick={() => handleBusClick(bus)}>
-                            <b>Stop:</b> {stopName} - <b>Bus:</b> {busName} - <b>Direction:</b> {busDirection} - <b> Route Name:</b> {routeName}
-                        </p>
-                    )
-                });
+                return (
+                    <div className="card-title" key={bus.stopId} onClick={() => handleBusClick(bus)}>
+                        <h2> {stopName}</h2>
+                        <div className="card-body">
+                            <p><b>Direction:</b> {busDirection}</p>
+                            <p><b>Buses:</b> {busNames}</p>
+                        </div>
+                    </div>
+                );
             })}
         </div>
-    )
-}
+    );
+};
 
 export default BusList;
