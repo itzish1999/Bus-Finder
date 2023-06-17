@@ -13,7 +13,6 @@ function App() {
   const busList = useSelector((state) => state.busList);
   const location = useSelector((state) => state.location);
 
-
   useGetLocation();
 
   useEffect(() => {
