@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const selectBusSlice = createSlice({
-    name: "SELECT_BUS",
-    initialState: {},
+    name: "selectBus",
+    initialState: [],
     reducers: {
-        getSelectedBus: (state, action) => {
+        setSelectedBus: (state, action) => {
             return action.payload;
         },
+        clearSelectedBus: (state) => {
+            return [];
+        }
     },
 });
 
-export const { getSelectedBus } = selectBusSlice.actions;
+export const { setSelectedBus, clearSelectedBus } = selectBusSlice.actions;
 
 export default selectBusSlice.reducer;
