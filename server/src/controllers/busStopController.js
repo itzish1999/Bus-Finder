@@ -9,7 +9,7 @@ const getBusStop = (req, res) => {
 
     console.log('coords', coords)
 
-    const route = `http://bustime.mta.info/api/where/stops-for-location.json?lat=${coords.latitude}&lon=${coords.longitude}&latSpan=0.018&lonSpan=0.018&key=${apiKey}`;
+    const route = `http://bustime.mta.info/api/where/stops-for-location.json?lat=${coords.latitude}&lon=${coords.longitude}&latSpan=0.005&lonSpan=0.005&key=${apiKey}`;
 
     axios.get(route)
         .then(response => {
